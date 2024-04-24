@@ -15,21 +15,40 @@ class _ExpensesState extends State<Expenses> {
   final List<Expense> _registeredExpenses = [
     Expense(
       title: 'Versestars App',
-      amount: 20000,
+      amount: 200,
       date: DateTime.now(),
       category: Category.work,
     ),
     Expense(
-      title: 'Music',
-      amount: 10000,
+      title: 'Travel',
+      amount: 100,
       date: DateTime.now(),
       category: Category.travel,
     ),
   ];
 
+  void _openAddExpenseOverlay() {
+    showModalBottomSheet(
+      context: context,
+      builder: (ctx) => Text('Xolile Yinja'),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Versestars RoutineTrackerApp',
+          style: TextStyle(),
+        ),
+        actions: [
+          IconButton(
+            onPressed: _openAddExpenseOverlay,
+            icon: const Icon(Icons.add),
+          ),
+        ],
+      ),
       body: Column(
         children: [
           const Text('Versestar chart'),

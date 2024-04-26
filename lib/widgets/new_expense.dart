@@ -5,7 +5,9 @@ import 'package:intl/intl.dart';
 final formatter = DateFormat.yMd();
 
 class NewExpense extends StatefulWidget {
-  const NewExpense({super.key});
+  const NewExpense({super.key, required this.onAddexpense});
+
+  final void Function(Expense expense) onAddexpense;
 
   @override
   State<StatefulWidget> createState() {
@@ -55,6 +57,14 @@ class _NewExpenseState extends State<NewExpense> {
       );
       return; //returning statement so that no code will execute if we made it to the if statement
     }
+
+    widget.onAddexpense(
+      Expense(
+          title: _titleController.text,
+          amount: enteredAmount,
+          date: _selectedDate!,
+          category: _selectedCategory),
+    );
   }
 
   @override

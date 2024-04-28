@@ -16,7 +16,7 @@ class _ExpensesState extends State<Expenses> {
   final List<Expense> _registeredExpenses = [
     Expense(
       title: 'Versestars App',
-      amount: 200,
+      amount: 2000000,
       date: DateTime.now(),
       category: Category.work,
     ),
@@ -30,6 +30,7 @@ class _ExpensesState extends State<Expenses> {
 
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
+      isScrollControlled: true, //making the keyboard to not overlap inputs
       context: context,
       builder: (ctx) => NewExpense(onAddexpense: _addExpense),
     );
@@ -41,8 +42,25 @@ class _ExpensesState extends State<Expenses> {
     });
   }
 
+  //Removing added expense from the tree widget
+  void _removeExpense(Expense expense) {
+    setState(() {
+      _registeredExpenses.remove(expense);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    Widget mainContent = const Center(
+      child: Text('no expenses found. Start adding some'),
+    );
+
+    if (_registeredExpenses.isNotEmpty) {
+      mainContent = ExpenseList(
+        expenses: _registeredExpenses,
+        onRemoveExpense: _removeExpense,
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -60,7 +78,7 @@ class _ExpensesState extends State<Expenses> {
         children: [
           const Text('Versestar / Xolile'),
           Expanded(
-            child: ExpenseList(expenses: _registeredExpenses),
+            child: mainContent,
           ),
         ],
       ),

@@ -65,6 +65,8 @@ class _NewExpenseState extends State<NewExpense> {
           date: _selectedDate!,
           category: _selectedCategory),
     );
+    //Closingthe overlay after a newexpense was added
+    Navigator.pop(context);
   }
 
   @override
@@ -78,7 +80,7 @@ class _NewExpenseState extends State<NewExpense> {
   Widget build(BuildContext context) {
     //retuning a combination of widgets
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.fromLTRB(16, 48, 16, 16),
       child: Column(
         children: [
           TextField(

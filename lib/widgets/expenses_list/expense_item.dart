@@ -15,27 +15,33 @@ class ExpenseItem extends StatelessWidget {
               vertical: 16,
             ),
             //Displaying multiple widgets
-            child: Column(children: [
-              Text(expense.title),
-              const SizedBox(
-                height: 4,
-              ),
-              Row(
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment
+                    .start, //Items at the beggining of the screen
                 children: [
-                  Text(expense.amount.toStringAsFixed(
-                      2)), //makes decimal nums to be 2 after the ,
-                  const Spacer(),
+                  Text(
+                    expense.title,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const SizedBox(
+                    height: 4,
+                  ),
                   Row(
                     children: [
-                      Icon(categoryIcons[expense.category]),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Text(expense.formattedDate),
+                      Text(expense.amount.toStringAsFixed(
+                          2)), //makes decimal nums to be 2 after the ,
+                      const Spacer(),
+                      Row(
+                        children: [
+                          Icon(categoryIcons[expense.category]),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Text(expense.formattedDate),
+                        ],
+                      )
                     ],
                   )
-                ],
-              )
-            ])));
+                ])));
   }
 }

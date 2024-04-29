@@ -1,3 +1,4 @@
+import 'package:expense_tracker/widgets/chart/chart.dart';
 import 'package:expense_tracker/widgets/expenses_list/expenses_list.dart';
 import 'package:expense_tracker/models/expense.dart';
 import 'package:expense_tracker/widgets/new_expense.dart';
@@ -22,7 +23,7 @@ class _ExpensesState extends State<Expenses> {
     ),
     Expense(
       title: 'Travel',
-      amount: 100,
+      amount: 100000,
       date: DateTime.now(),
       category: Category.travel,
     ),
@@ -48,6 +49,7 @@ class _ExpensesState extends State<Expenses> {
     setState(() {
       _registeredExpenses.remove(expense);
     });
+    ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         duration: const Duration(seconds: 3),
@@ -79,8 +81,10 @@ class _ExpensesState extends State<Expenses> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Versestars RoutineTrackerApp',
-          style: TextStyle(),
+          "Xolile's ExpenseTrackerApp",
+          style: TextStyle(
+            color: Colors.white,
+          ),
         ),
         actions: [
           IconButton(
@@ -91,7 +95,7 @@ class _ExpensesState extends State<Expenses> {
       ),
       body: Column(
         children: [
-          const Text('Versestar / Xolile'),
+          Chart(expenses: _registeredExpenses),
           Expanded(
             child: mainContent,
           ),

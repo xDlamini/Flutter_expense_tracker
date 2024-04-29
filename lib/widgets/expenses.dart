@@ -68,6 +68,8 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
+    final width = (MediaQuery.of(context).size.width);
+
     Widget mainContent = const Center(
       child: Text('no expenses found. Start adding some'),
     );
@@ -79,28 +81,39 @@ class _ExpensesState extends State<Expenses> {
       );
     }
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Xolile's ExpenseTrackerApp",
-          style: TextStyle(
-            color: Colors.white,
+        appBar: AppBar(
+          title: const Text(
+            "Xolile's ExpenseTrackerApp",
+            style: TextStyle(
+              color: Colors.white,
+            ),
           ),
+          actions: [
+            IconButton(
+              onPressed: _openAddExpenseOverlay,
+              icon: const Icon(Icons.add),
+            ),
+          ],
         ),
-        actions: [
-          IconButton(
-            onPressed: _openAddExpenseOverlay,
-            icon: const Icon(Icons.add),
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          Chart(expenses: _registeredExpenses),
-          Expanded(
-            child: mainContent,
-          ),
-        ],
-      ),
-    );
+        //switching from a column to a row depending on how much width is available
+        body: width < 600
+            ? Column(
+                children: [
+                  Chart(expenses: _registeredExpenses),
+                  Expanded(
+                    child: mainContent,
+                  ),
+                ],
+              )
+            : Row(
+                children: [
+                  Expanded(
+                    child: Chart(expenses: _registeredExpenses),
+                  ),
+                  Expanded(
+                    child: mainContent,
+                  ),
+                ],
+              ));
   }
 }
